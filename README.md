@@ -1,76 +1,58 @@
-
 Hi there, I'm Omar 👋 
- 
+
 <div align="center"> 
   <img width="100%" src="https://github.com/Omai5/Omai5/blob/main/assets/banner.png.png" alt="Banner" /> 
 </div> 
- 
+
 <h3 align="center"> 
   Omar Abdelrahman Ali • Backend Developer 
 </h3> 
- 
+
 <p align="center"> 
   📧 omai.ali.2005i@gmail.com • 📞 01044111575 
 </p> 
- 
+
 --- 
- 
+
 ## 🧰 Tech Stack 
- 
-### 🖥️ Programming Languages 
+
+### 🖥️ Programming Languages
 <p align="left"> 
-  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2b%2b&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/SQL-CC2927?style=for-the-badge&logo=sqlite&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" /> 
+  <img src="https://skillicons.dev/icons?i=go,java,cpp,rust,python,mysql,mongodb&theme=light" />
 </p> 
- 
+
 ### ⚙️ Frameworks & Tools 
 <p align="left"> 
-  <img src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" /> 
-  <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" /> 
-  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white" /> 
+  <img src="https://skillicons.dev/icons?i=docker,linux,postman,git,vscode&theme=light" />
 </p> 
- 
+
 --- 
- 
+
 ## 📊 GitHub Stats 
- 
-<a href="https://github.com/Omai5"> 
-  <img align="center" src="https://api.githubtrends.io/user/svg/Omai5/langs?time_range=one_year&use_percent=True&theme=bright_lights" /> 
-</a> 
- 
-<a href="https://github.com/Omai5"> 
-  <img align="center" src="https://github-readme-stats.vercel.app/api?username=Omai5&bg_color=071A2C&icon_color=4194FD&show_icons=true&count_private=true&theme=tokyonight&line_height=27&text_color=FFFFFF" alt="Omar's GitHub Stats"/> 
-</a> 
- 
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Omai5&show_icons=true&theme=tokyonight&hide_title=true&count_private=true&hide_border=true" alt="GitHub Stats" />
+  <br/>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Omai5&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
+</div>
+
 --- 
- 
+
+## 🌐 Socials
+
+<p align="center">
+  <a href="https://t.me/omi_6"><img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" /></a>
+  <a href="https://www.instagram.com/omai_i5?igsh=czdpbnNoOWxmMnZ3&utm_source=qr"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" /></a>
+  <a href="https://www.facebook.com/share/1YddZLvqtw/?mibextid=wwXIfr"><img src="https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white" /></a>
+  <a href="https://www.tiktok.com/@omai_9"><img src="https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white" /></a>
+</p>
+
+--- 
+
 ## 📬 Contact Me 
- 
+
 <div align="center"> 
   <a href="mailto:omai.ali.2005i@gmail.com" target="_blank"> 
-    <img src="https://img.shields.io/badge/Gmail-%231877F2.svg?&style=flat-square&logo=gmail&logoColor=white&color=071A2C" alt="Gmail"> 
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"> 
   </a> 
 </div> 
-""" 
- 
-# Overwrite the previous README.md 
-with open("/mnt/data/OmarPortfolioREADME/README.md", "w") as f: 
-    f.write(readme_updated_content) 
- 
-# Zip the updated project 
-updated_zip_path = "/mnt/data/OmarPortfolioREADME_Updated.zip" 
-with zipfile.ZipFile(updated_zip_path, 'w') as zipf: 
-    for foldername, subfolders, filenames in os.walk(base_path): 
-        for filename in filenames: 
-            file_path = os.path.join(foldername, filename) 
-            arcname = os.path.relpath(file_path, base_path) 
-            zipf.write(file_path, arcname) 
- 
-updated_zip_path
