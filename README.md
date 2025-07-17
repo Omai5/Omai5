@@ -1,5 +1,5 @@
 # Prepare the updated README content based on user's latest instructions 
-readme_updated_content = """# Hi there, I'm Omar 👋 
+Hi there, I'm Omar 👋 
  
 <div align="center"> 
   <img width="100%" src="https://github.com/Omai5/Omai5/blob/main/assets/banner.png.png" alt="Banner" /> 
