@@ -1,4 +1,4 @@
-# Prepare the updated README content based on user's latest instructions 
+
 Hi there, I'm Omar 👋 
  
 <div align="center"> 
