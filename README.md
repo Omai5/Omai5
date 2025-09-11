@@ -16,14 +16,14 @@ Hi there, I'm Omar 👋
 
 ## 🧰 Tech Stack 
 
-### 🖥️ Programming Languages
+### 🖥️ Programming Languages & Databases
 <p align="left"> 
-  <img src="https://skillicons.dev/icons?i=go,java,cpp,rust,python,mysql,mongodb&theme=light" />
+  <img src="https://skillicons.dev/icons?i=go,java,cpp,rust,python,php,mysql,mongodb&theme=light" />
 </p> 
 
-### ⚙️ Frameworks & Tools 
+### ⚙️ Frameworks, Libraries & Tools 
 <p align="left"> 
-  <img src="https://skillicons.dev/icons?i=docker,linux,postman,git,vscode&theme=light" />
+  <img src="https://skillicons.dev/icons?i=laravel,express,react,nodejs,docker,linux,postman,git,vscode&theme=light" />
 </p> 
 
 --- 
@@ -55,4 +55,4 @@ Hi there, I'm Omar 👋
   <a href="mailto:omai.ali.2005i@gmail.com" target="_blank"> 
     <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"> 
   </a> 
-</div> 
+</div>
