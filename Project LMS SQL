@@ -1,4 +1,23 @@
---Project MLS SQL .
+--Project LMS SQL .
 /* =========================
    ========== DDL ==========
    ========================= */
+create database Library_MS;
+
+CREATE TABLE Member (
+    MemberID INT PRIMARY KEY,
+    Email VARCHAR(100) UNIQUE,
+    FirstName VARCHAR(50),
+    MiddleName VARCHAR(50),
+    LastName VARCHAR(50),
+    City VARCHAR(50),
+    StreetNumber VARCHAR(50),
+    ZipCode VARCHAR(20)
+);
+
+CREATE TABLE PhoneMember (
+    MemberID INT,
+    Phone VARCHAR(20),
+    PRIMARY KEY (MemberID, Phone),
+    FOREIGN KEY (MemberID) REFERENCES Member(MemberID)
+);
