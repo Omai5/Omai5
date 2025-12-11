@@ -5,7 +5,7 @@
 create database Library_MS;
 
 CREATE TABLE Member (
-    MemberID INT PRIMARY KEY,
+    Member_ID INT PRIMARY KEY,
     Email VARCHAR(100) UNIQUE,
     FirstName VARCHAR(50),
     MiddleName VARCHAR(50),
@@ -16,7 +16,7 @@ CREATE TABLE Member (
 );
 
 CREATE TABLE PhoneMember (
-    MemberID INT,
+    Member_ID INT,
     Phone VARCHAR(20),
     PRIMARY KEY (MemberID, Phone),
     FOREIGN KEY (MemberID) REFERENCES Member(MemberID)
