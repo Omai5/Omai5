@@ -19,5 +19,5 @@ CREATE TABLE PhoneMember (
     Member_ID INT,
     Phone VARCHAR(20),
     PRIMARY KEY (Member_ID, Phone),
-    FOREIGN KEY (Member_ID) REFERENCES Member(MemberID)
+    FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID)
 );
