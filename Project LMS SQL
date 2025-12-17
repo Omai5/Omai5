@@ -21,9 +21,4 @@ CREATE TABLE PhoneMember (
     PRIMARY KEY (Member_ID, Phone),
     FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID)
 );
-create table customer
-(
-Customer_ID int primary key,
-firstName varchar(8) not null,
-Email varchar(25) not null
-);
+
