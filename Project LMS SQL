@@ -21,4 +21,17 @@ CREATE TABLE PhoneMember (
     PRIMARY KEY (Member_ID, Phone),
     FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID)
 );
+CREATE TABLE Book (
+    Book_ID INT PRIMARY KEY,
+    Title VARCHAR(200) NOT NULL,
+    Author VARCHAR(150) NOT NULL,
+    Publisher VARCHAR(150),
+    Status VARCHAR(50),
+    Age_Group VARCHAR(50),
+    Category_ID INT,
+    FOREIGN KEY (Category_ID)
+        REFERENCES Category(Category_ID)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
+);
 
