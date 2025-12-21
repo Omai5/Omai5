@@ -40,3 +40,54 @@ CREATE TABLE Book (
         ON DELETE SET NULL
         ON UPDATE CASCADE
 );
+
+CREATE TABLE Warehouse (
+    warehouse_ID INT PRIMARY KEY,
+    warehouseLocation VARCHAR(100) ,
+    warehousename VARCHAR(50) 
+);  
+
+CREATE TABLE Branch (
+    Branch_ID INT PRIMARY KEY,
+    BranchName VARCHAR(50) ,
+    BranchLocation VARCHAR(100) ,
+    warehouse_ID INT ,
+    FOREIGN KEY (warehouse_ID) REFERENCES Warehouse(warehouse_ID)
+);
+
+
+CREATE TABLE BorrowBook (
+    Book_ID INT ,
+    Member_ID INT,
+    BorrowDate DATE ,
+    DueDate DATE ,
+    FineAmount DECIMAL(6,2) DEFAULT 0,
+    Price DECIMAL(6,2) ,
+    PRIMARY KEY (Book_ID, Member_ID),
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
+    FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID)
+);
+
+CREATE TABLE BranchStock (
+    Book_ID INT ,
+    Branch_ID INT ,
+    quantityBorrowed INT DEFAULT 0,
+    quantityAvailable INT ,
+    PRIMARY KEY (Book_ID, Branch_ID),
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
+    FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID)
+);
+
+
+CREATE TABLE Staff (
+    employee_ID INT PRIMARY KEY,
+    Manager_ID INT UNIQUE,
+    NetSalary DECIMAL(8,2) ,
+    firstname VARCHAR(50) ,
+    middlename VARCHAR(50),
+    lastname VARCHAR(50) ,
+    Branch_ID INT,
+    warehouse_ID INT,
+    FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID),
+    FOREIGN KEY (warehouse_ID) REFERENCES Warehouse(warehouse_ID)
+);
