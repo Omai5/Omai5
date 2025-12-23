@@ -81,17 +81,31 @@ CREATE TABLE BranchStock (
 
 CREATE TABLE Staff (
     employee_ID INT PRIMARY KEY,
-    Manager_ID INT UNIQUE,
-    Phone varchar(15) UNIQUE,
-    Email varchar(25) NOT NULL,
+
+    Manager_ID INT NULL,
+
+    Phone VARCHAR(15) NOT NULL UNIQUE,
+    Email VARCHAR(25) NOT NULL UNIQUE,
+
     NetSalary DECIMAL(8,2) NOT NULL,
+
     firstname VARCHAR(50) NOT NULL,
     middlename VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
-    Branch_ID INT,
-    warehouse_ID INT,
+
+    Branch_ID INT NULL,
+    warehouse_ID INT NULL,
+
+
+    FOREIGN KEY (Manager_ID) REFERENCES Staff(employee_ID),
     FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID),
-    FOREIGN KEY (warehouse_ID) REFERENCES Warehouse(warehouse_ID)
+    FOREIGN KEY (warehouse_ID) REFERENCES Warehouse(warehouse_ID),
+
+    
+    CHECK (
+        (Branch_ID IS NOT NULL AND warehouse_ID IS NULL)
+     OR (Branch_ID IS NULL AND warehouse_ID IS NOT NULL)
+    )
 );
 
 
@@ -165,16 +179,23 @@ INSERT INTO BorrowBook VALUES
 
 
 INSERT INTO Staff VALUES
-(1, 101, '2010111567' , 'Seif.2004@hi.com' , 6000 , 'Ali', 'Hassan', 'Mahmoud', 1, NULL),
-(2, 102, NULL , 'Ahmed.2005@hi.com', 5500 , 'Mona', 'Ahmed', 'Salem', 2, NULL),
-(3, 103, '201177898714' , 'Omar.2005@hi.com' , 5000 , 'Youssef', 'Kamal', 'Ali', 3, NULL),
-(4, 104, '201098221221', 'Moustafa.2005@hi.com' , 6500 , 'Nour', 'Ibrahim', 'Fathy', NULL, 1),
-(5, 105, NULL , 'Mariam.2004@hi.com' , 7000 , 'Hany', 'Mostafa', 'Saad', NULL, 2),
-(6,  NULL, '01011111111', 'ali.staff@hi.com',     5200, 'Ali',    'Ahmed',   'Youssef', 1, NULL),
-(7,  NULL, '01022222222', 'sara.staff@hi.com',    5400, 'Sara',   'Mohamed', 'Hassan',  2, NULL),
-(8,  NULL, '01033333333', 'omar.staff@hi.com',    5000, 'Omar',   'Ibrahim', 'Saleh',   3, NULL),
-(9,  NULL, '01044444444', 'lina.staff@hi.com',    6100, 'Lina',   'Youssef', 'Kamal',   NULL, 1),
-(10, NULL, '01055555555', 'mahmoud.staff@hi.com', 5800, 'Mahmoud','Sayed',   'Fathy',   NULL, 2);
+-- Managers
+(1, NULL, '2010111567', 'Seif.2004@hi.com', 6000, 'Ali', 'Hassan', 'Mahmoud', 1, NULL),
+(2, NULL, '2010222222', 'Ahmed.2005@hi.com', 6500, 'Mona', 'Ahmed', 'Salem', 2, NULL),
+(3, NULL, '2011778987', 'Omar.2005@hi.com', 7000, 'Youssef', 'Kamal', 'Ali', 3, NULL),
+
+-- Staff under Manager 1
+(4, 1, '201098221221', 'Moustafa.2005@hi.com', 5000, 'Nour', 'Ibrahim', 'Fathy', 1, NULL),
+(5, 1, '2010333333', 'Mariam.2004@hi.com', 5200, 'Hany', 'Mostafa', 'Saad', 1, NULL),
+
+-- Staff under Manager 2
+(6, 2, '01011111111', 'ali.staff@hi.com', 4800, 'Ali', 'Ahmed', 'Youssef', 2, NULL),
+(7, 2, '01022222222', 'sara.staff@hi.com', 4900, 'Sara', 'Mohamed', 'Hassan', 2, NULL),
+
+-- Staff under Manager 3
+(8, 3, '01033333333', 'omar.staff@hi.com', 4700, 'Omar', 'Ibrahim', 'Saleh', 3, NULL),
+(9, 3, '01044444444', 'lina.staff@hi.com', 5100, 'Lina', 'Youssef', 'Kamal', NULL, 1),
+(10,3, '01055555555', 'mahmoud.staff@hi.com', 5300, 'Mahmoud', 'Sayed', 'Fathy', NULL, 2);
 
 
 
