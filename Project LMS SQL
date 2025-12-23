@@ -23,7 +23,7 @@ CREATE TABLE PhoneMember (
 );
 
 CREATE TABLE Category (
-    Category_ID INT PRIMARY KEY IDENTITY(1,1),
+    Category_ID INT PRIMARY KEY ,
     CategoryName VARCHAR(100) NOT NULL
 );
 
