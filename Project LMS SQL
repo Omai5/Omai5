@@ -82,12 +82,99 @@ CREATE TABLE BranchStock (
 CREATE TABLE Staff (
     employee_ID INT PRIMARY KEY,
     Manager_ID INT UNIQUE,
-    NetSalary DECIMAL(8,2) not null ,
-    firstname VARCHAR(50) not null ,
-    middlename VARCHAR(50) not null,
-    lastname VARCHAR(50) not null ,
+    Phone varchar(15) UNIQUE,
+    Email varchar(25) NOT NULL
+    NetSalary DECIMAL(8,2) NOT NULL,
+    firstname VARCHAR(50) NOT NULL,
+    middlename VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
     Branch_ID INT,
     warehouse_ID INT,
     FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID),
     FOREIGN KEY (warehouse_ID) REFERENCES Warehouse(warehouse_ID)
 );
+
+
+
+/* =========================
+   ========== DML ==========
+   ========================= */
+
+
+INSERT INTO Category VALUES
+(1, 'Programming'),
+(2, 'Databases'),
+(3, 'AI'),
+(4, 'Networking'),
+(5, 'Business');
+
+INSERT INTO Warehouse VALUES
+(1, 'Cairo - Nasr City', 'Main Warehouse'),
+(2, 'Giza - Dokki', 'Secondary Warehouse');
+
+
+INSERT INTO Branch VALUES
+(1, 'Nasr City Branch', 'Nasr City', 1),
+(2, 'Dokki Branch', 'Dokki', 2),
+(3, 'Maadi Branch', 'Maadi', 1);
+
+
+INSERT INTO Member VALUES
+(1, 'ahmed@gmail.com', 'Ahmed', 'Ali', 'Hassan', 'Cairo', '12', '11511'),
+(2, 'sara@gmail.com', 'Sara', 'Mohamed', 'Ali', 'Giza', '45', '12611'),
+(3, 'omar@gmail.com', 'Omar', 'Ibrahim', 'Saleh', 'Alex', '7', '21500'),
+(4, 'lina@gmail.com', 'Lina', 'Youssef', 'Kamal', 'Cairo', '23', '11728'),
+(5, 'mahmoud@gmail.com', 'Mahmoud', 'Sayed', 'Fathy', 'Giza', '9', '12411');
+
+
+INSERT INTO PhoneMember VALUES
+(1, '01011111111'),
+(1, '01122222222'),
+(2, '01233333333'),
+(3, '01544444444'),
+(4, '01055555555');
+
+
+
+INSERT INTO Book VALUES
+(1, 'C Programming', 'Dennis Ritchie', 'Pearson', 'Available', 'Adult', 1),
+(2, 'SQL Fundamentals', 'John Smith', 'O''Reilly', 'Available', 'Adult', 2),
+(3, 'AI Basics', 'Andrew Ng', 'MIT Press', 'Available', 'Adult', 3),
+(4, 'Networking 101', 'James Kurose', 'McGraw-Hill', 'Borrowed', 'Adult', 4),
+(5, 'Business Strategy', 'Michael Porter', 'Harvard', 'Available', 'Adult', 5),
+(6, 'Python for Beginners', 'Eric Matthes', 'No Starch', 'Available', 'Teen', 1);
+
+
+
+INSERT INTO BranchStock VALUES
+(1, 1, 2, 8),
+(2, 1, 1, 5),
+(3, 2, 0, 6),
+(4, 2, 3, 2),
+(5, 3, 1, 4),
+(6, 3, 0, 7);
+
+
+
+INSERT INTO BorrowBook VALUES
+(4, 1, '2025-01-01', '2025-01-15', 0, 250),
+(2, 2, '2025-01-05', '2025-01-20', 10, 300),
+(1, 3, '2025-01-10', '2025-01-25', 0, 200),
+(3, 4, '2025-01-12', '2025-01-27', 5, 400);
+
+
+
+INSERT INTO Staff VALUES
+(1, 101, '2010111567' , 'Seif.2004@hi.com' , 6000 , 'Ali', 'Hassan', 'Mahmoud', 1, NULL),
+(2, 102, NULL , 'Ahmed.2005@hi.com', 5500 , 'Mona', 'Ahmed', 'Salem', 2, NULL),
+(3, 103, '201177898714' , 'Omar.2005@hi.com' , 5000 , 'Youssef', 'Kamal', 'Ali', 3, NULL),
+(4, 104, '201098221221', 'Moustafa.2005@hi.com' , 6500 , 'Nour', 'Ibrahim', 'Fathy', NULL, 1),
+(5, 105, NULL , 'Mariam.2004@hi.com' , 7000 , 'Hany', 'Mostafa', 'Saad', NULL, 2),
+(6,  NULL, '01011111111', 'ali.staff@hi.com',     5200, 'Ali',    'Ahmed',   'Youssef', 1, NULL),
+(7,  NULL, '01022222222', 'sara.staff@hi.com',    5400, 'Sara',   'Mohamed', 'Hassan',  2, NULL),
+(8,  NULL, '01033333333', 'omar.staff@hi.com',    5000, 'Omar',   'Ibrahim', 'Saleh',   3, NULL),
+(9,  NULL, '01044444444', 'lina.staff@hi.com',    6100, 'Lina',   'Youssef', 'Kamal',   NULL, 1),
+(10, NULL, '01055555555', 'mahmoud.staff@hi.com', 5800, 'Mahmoud','Sayed',   'Fathy',   NULL, 2);
+
+
+
