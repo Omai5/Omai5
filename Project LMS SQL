@@ -83,7 +83,7 @@ CREATE TABLE Staff (
     employee_ID INT PRIMARY KEY,
     Manager_ID INT UNIQUE,
     Phone varchar(15) UNIQUE,
-    Email varchar(25) NOT NULL
+    Email varchar(25) NOT NULL,
     NetSalary DECIMAL(8,2) NOT NULL,
     firstname VARCHAR(50) NOT NULL,
     middlename VARCHAR(50) NOT NULL,
