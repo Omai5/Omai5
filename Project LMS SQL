@@ -7,12 +7,12 @@ create database Library_MS;
 CREATE TABLE Member (
     Member_ID INT PRIMARY KEY,
     Email VARCHAR(100) UNIQUE,
-    FirstName VARCHAR(50),
-    MiddleName VARCHAR(50),
-    LastName VARCHAR(50),
-    City VARCHAR(50),
-    StreetNumber VARCHAR(50),
-    ZipCode VARCHAR(20)
+    FirstName VARCHAR(50) not null,
+    MiddleName VARCHAR(50) not null,
+    LastName VARCHAR(50) not null,
+    City VARCHAR(50) not null,
+    StreetNumber VARCHAR(50) not null,
+    ZipCode VARCHAR(20) not null
 );
 
 CREATE TABLE PhoneMember (
@@ -43,14 +43,14 @@ CREATE TABLE Book (
 
 CREATE TABLE Warehouse (
     warehouse_ID INT PRIMARY KEY,
-    warehouseLocation VARCHAR(100) ,
-    warehousename VARCHAR(50) 
+    warehouseLocation VARCHAR(100) not null ,
+    warehousename VARCHAR(50) not null
 );  
 
 CREATE TABLE Branch (
     Branch_ID INT PRIMARY KEY,
-    BranchName VARCHAR(50) ,
-    BranchLocation VARCHAR(100) ,
+    BranchName VARCHAR(50) not null ,
+    BranchLocation VARCHAR(100) not null,
     warehouse_ID INT ,
     FOREIGN KEY (warehouse_ID) REFERENCES Warehouse(warehouse_ID)
 );
@@ -59,10 +59,10 @@ CREATE TABLE Branch (
 CREATE TABLE BorrowBook (
     Book_ID INT ,
     Member_ID INT,
-    BorrowDate DATE ,
-    DueDate DATE ,
+    BorrowDate DATE not null,
+    DueDate DATE not null ,
     FineAmount DECIMAL(6,2) DEFAULT 0,
-    Price DECIMAL(6,2) ,
+    Price DECIMAL(6,2) not null ,
     PRIMARY KEY (Book_ID, Member_ID),
     FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
     FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID)
@@ -72,7 +72,7 @@ CREATE TABLE BranchStock (
     Book_ID INT ,
     Branch_ID INT ,
     quantityBorrowed INT DEFAULT 0,
-    quantityAvailable INT ,
+    quantityAvailable INT  not null,
     PRIMARY KEY (Book_ID, Branch_ID),
     FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID),
     FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID)
@@ -82,10 +82,10 @@ CREATE TABLE BranchStock (
 CREATE TABLE Staff (
     employee_ID INT PRIMARY KEY,
     Manager_ID INT UNIQUE,
-    NetSalary DECIMAL(8,2) ,
-    firstname VARCHAR(50) ,
-    middlename VARCHAR(50),
-    lastname VARCHAR(50) ,
+    NetSalary DECIMAL(8,2) not null ,
+    firstname VARCHAR(50) not null ,
+    middlename VARCHAR(50) not null,
+    lastname VARCHAR(50) not null ,
     Branch_ID INT,
     warehouse_ID INT,
     FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID),
