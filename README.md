@@ -9,7 +9,7 @@ Hi there, I'm Omar 👋
 </h3> 
 
 <p align="center"> 
-  📧 omai.ali.2005i@gmail.com • 📞 01044111575 
+  📧 omar.ali.set@gmail.com • 📞 01044111575 
 </p> 
 
 --- 
