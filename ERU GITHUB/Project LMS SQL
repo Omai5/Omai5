@@ -218,7 +218,7 @@ CREATE TABLE Branch (
 CREATE TABLE Category (
     Category_ID INT PRIMARY KEY,
     Category_Name VARCHAR(100) not null,
-    Age_Group VARCHAR(50) not null
+    Age_Group VARCHAR(50) not null ,
     CategoryType varchar(20) null
    check (CategoryType in ('Fiction', 'Scientific', 'Development'))
 );
