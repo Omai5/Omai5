@@ -282,7 +282,7 @@ CREATE TABLE Staff (
     Phone VARCHAR(15) NOT NULL UNIQUE,
     Email VARCHAR(25) NOT NULL UNIQUE,
 
-    NetSalary DECIMAL(8,2) NOT NULL,
+    NetSalary DECIMAL(8,2) NOT NULL CHECK (Net_Salary > 0) ,
 
     firstname VARCHAR(50) NOT NULL,
     middlename VARCHAR(50) NOT NULL,
