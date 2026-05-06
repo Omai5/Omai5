@@ -198,4 +198,228 @@ INSERT INTO Staff VALUES
 (10,3, '01055555555', 'mahmoud.staff@hi.com', 5300, 'Mahmoud', 'Sayed', 'Fathy', NULL, 2);
 
 --///////////////////EERD///////////////////////////////////////
+CREATE DATABASE LibraryDB;
+USE LibraryDB;
 
+CREATE TABLE Branch (
+    Branch_ID INT PRIMARY KEY,
+    Branch_Name VARCHAR(100),
+    Branch_Location VARCHAR(100)
+);
+
+CREATE TABLE Warehouse (
+    Warehouse_ID INT PRIMARY KEY,
+    Warehouse_Name VARCHAR(100),
+    Warehouse_Location VARCHAR(100)
+);
+
+CREATE TABLE Category (
+    Category_ID INT PRIMARY KEY,
+    Category_Name VARCHAR(100),
+    Age_Group VARCHAR(50)
+);
+
+CREATE TABLE Member (
+    Member_ID INT PRIMARY KEY,
+    First_Name VARCHAR(50),
+    Middle_Name VARCHAR(50),
+    Last_Name VARCHAR(50),
+    Phone VARCHAR(20),
+    Email VARCHAR(100),
+    City VARCHAR(50),
+    Street_Number VARCHAR(20),
+    Zip_Code VARCHAR(20),
+    Member_Type VARCHAR(20),
+    CONSTRAINT Check_Membership CHECK (Member_Type IN ('Premium', 'Regular'))
+);
+
+CREATE TABLE Staff (
+    Employee_ID INT PRIMARY KEY,
+    First_Name VARCHAR(50),
+    Middle_Name VARCHAR(50),
+    Last_Name VARCHAR(50),
+    Phone VARCHAR(20),
+    Email VARCHAR(100),
+    Net_Salary DECIMAL(10,2),
+    Manager_ID INT,
+    Branch_ID INT,
+    FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID)
+);
+
+CREATE TABLE Staff_Assigned_To_Warehouse (
+    Employee_ID INT,
+    Warehouse_ID INT,
+    PRIMARY KEY (Employee_ID, Warehouse_ID),
+    FOREIGN KEY (Employee_ID) REFERENCES Staff(Employee_ID),
+    FOREIGN KEY (Warehouse_ID) REFERENCES Warehouse(Warehouse_ID)
+);
+
+CREATE TABLE Warehouse_Supplies_Branch (
+    Warehouse_ID INT,
+    Branch_ID INT,
+    PRIMARY KEY (Warehouse_ID, Branch_ID),
+    FOREIGN KEY (Warehouse_ID) REFERENCES Warehouse(Warehouse_ID),
+    FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID)
+);
+
+CREATE TABLE Book (
+    Book_ID INT PRIMARY KEY,
+    Title VARCHAR(100),
+    Author VARCHAR(100),
+    Publisher VARCHAR(100),
+    Age_Group VARCHAR(50),
+    Category_ID INT,
+    Book_Type VARCHAR(20),
+    CONSTRAINT Check_Book_Type CHECK (Book_Type IN ('Physical', 'Digital')),
+    FOREIGN KEY (Category_ID) REFERENCES Category(Category_ID)
+);
+
+CREATE TABLE Branch_Stock (
+    Branch_ID INT,
+    Book_ID INT,
+    Quantity_Borrowed INT,
+    Quantity_Available INT,
+    PRIMARY KEY (Branch_ID, Book_ID),
+    FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID),
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID)
+);
+
+CREATE TABLE Borrow (
+    Member_ID INT,
+    Book_ID INT,
+    Borrow_Date DATE,
+    Due_Date DATE,
+    Price DECIMAL(10,2),
+    Fine_Amount DECIMAL(10,2),
+    Maximum_Books INT,
+    PRIMARY KEY (Member_ID, Book_ID, Borrow_Date),
+    FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID),
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID)
+);
+
+CREATE TABLE Physical_Book (
+    Book_ID INT PRIMARY KEY,
+    Status VARCHAR(50),
+    Shelf_Location VARCHAR(50),
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID)
+);
+
+CREATE TABLE Digital_Book (
+    Book_ID INT PRIMARY KEY,
+    File_Format VARCHAR(50),
+    File_Size INT,
+    URL VARCHAR(200),
+    FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID)
+);
+
+CREATE TABLE Premium_Member (
+    Member_ID INT PRIMARY KEY,
+    Subscription_Fee DECIMAL(10,2),
+    Subscription_Expiry DATE,
+    FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID)
+);
+
+CREATE TABLE Regular_Member (
+    Member_ID INT PRIMARY KEY,
+    Deposit_Amount DECIMAL(10,2),
+    FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID)
+);
+
+CREATE TABLE PhoneMember (
+    Phone_ID INT PRIMARY KEY,
+    Member_ID INT,
+    Phone_Number VARCHAR(20),
+    FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID)
+);
+
+SELECT Member.First_Name, Member.Last_Name, Book.Title, Borrow.Borrow_Date
+FROM Member
+INNER JOIN Borrow ON Member.Member_ID = Borrow.Member_ID
+INNER JOIN Book ON Borrow.Book_ID = Book.Book_ID
+WHERE Book.Age_Group = 'Adults';
+
+SELECT Branch.Branch_Name, COUNT(Branch_Stock.Book_ID) AS Number_Of_Books
+FROM Branch
+INNER JOIN Branch_Stock ON Branch.Branch_ID = Branch_Stock.Branch_ID
+GROUP BY Branch.Branch_Name;
+
+SELECT Member_ID, SUM(Fine_Amount) AS Total_Fines
+FROM Borrow
+GROUP BY Member_ID;
+
+SELECT AVG(Net_Salary) AS Average_Salary
+FROM Staff;
+
+SELECT Title
+FROM Book
+WHERE Book_ID IN (
+    SELECT Book_ID
+    FROM Borrow
+    WHERE Fine_Amount > 0
+);
+
+SELECT Staff.First_Name, Staff.Last_Name, Branch.Branch_Name
+FROM Staff
+INNER JOIN Branch ON Staff.Branch_ID = Branch.Branch_ID
+WHERE Staff.Net_Salary > 5000;
+
+CREATE VIEW Borrow_Details AS
+SELECT Member.First_Name, Member.Last_Name, Book.Title, Borrow.Due_Date
+FROM Member
+INNER JOIN Borrow ON Member.Member_ID = Borrow.Member_ID
+INNER JOIN Book ON Borrow.Book_ID = Book.Book_ID;
+
+CREATE PROCEDURE Get_All_Books
+AS
+SELECT * FROM Book;
+
+CREATE PROCEDURE Get_Books_By_Category
+    @CategoryID INT
+AS
+BEGIN
+    SELECT Title, Author
+    FROM Book
+    WHERE Category_ID = @CategoryID;
+END;
+
+CREATE PROCEDURE BorrowBook
+    @MemberID INT,
+    @BookID INT,
+    @DueDate DATE
+AS
+BEGIN
+    INSERT INTO Borrow (Member_ID, Book_ID, Borrow_Date, Due_Date, Price, Fine_Amount, Maximum_Books)
+    VALUES (@MemberID, @BookID, GETDATE(), @DueDate, 0, 0, 0);
+END;
+
+CREATE PROCEDURE GetDueDate
+    @MemberID INT,
+    @BookID INT
+AS
+BEGIN
+    SELECT Due_Date
+    FROM Borrow
+    WHERE Member_ID = @MemberID AND Book_ID = @BookID;
+END;
+
+CREATE PROCEDURE GetMaxBooks
+    @MemberID INT
+AS
+BEGIN
+    SELECT 
+        CASE 
+            WHEN Member_Type = 'Premium' THEN 10
+            WHEN Member_Type = 'Regular' THEN 5
+        END AS Maximum_Books
+    FROM Member
+    WHERE Member_ID = @MemberID;
+END;
+
+CREATE PROCEDURE CheckMembership
+    @MemberID INT
+AS
+BEGIN
+    SELECT Member_Type
+    FROM Member
+    WHERE Member_ID = @MemberID;
+END;
