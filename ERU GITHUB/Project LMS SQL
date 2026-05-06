@@ -346,3 +346,133 @@ CREATE TABLE Borrow (
     FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID),
     FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID)
 );
+-- 1. Warehouse (20 Records)
+INSERT INTO Warehouse (Warehouse_ID, Warehouse_Name, Warehouse_Location) VALUES
+(1, 'Central Cairo Hub', 'Cairo'), (2, 'Alexandria Depot', 'Alexandria'), (3, 'Giza Storage', 'Giza'), (4, 'Delta Logistics', 'Tanta'),
+(5, 'Suez Canal Store', 'Ismailia'), (6, 'Upper Egypt Branch', 'Assiut'), (7, 'Red Sea Warehouse', 'Hurghada'), (8, 'Sinai Supply', 'Arish'),
+(9, 'Luxor Repository', 'Luxor'), (10, 'Aswan Archive', 'Aswan'), (11, 'Matrouh Center', 'Marsa Matrouh'), (12, 'Dakahlia Unit', 'Mansoura'),
+(13, 'Beheira Store', 'Damanhour'), (14, 'Sharqia Base', 'Zagazig'), (15, 'Fayoum Facility', 'Fayoum'), (16, 'Beni Suef Depot', 'Beni Suef'),
+(17, 'Minya Hub', 'Minya'), (18, 'Qena Store', 'Qena'), (19, 'Sohag Supply', 'Sohag'), (20, 'Damietta Port Store', 'Damietta');
+
+-- 2. Branch (20 Records)
+INSERT INTO Branch (Branch_ID, Branch_Name, Branch_Location, Warehouse_ID) VALUES
+(101, 'Maadi Branch', 'Maadi, Cairo', 1), (102, 'Zamalek Library', 'Zamalek, Cairo', 1), (103, 'Sidi Gaber Branch', 'Alexandria', 2), (104, 'Miami Library', 'Alexandria', 2),
+(105, 'October City Branch', 'Giza', 3), (106, 'Dokki Library', 'Dokki, Giza', 3), (107, 'Tanta Central', 'Tanta', 4), (108, 'Mansoura North', 'Mansoura', 12),
+(109, 'Port Said Library', 'Port Said', 5), (110, 'Ismailia Branch', 'Ismailia', 5), (111, 'Assiut University Br', 'Assiut', 6), (112, 'Minya Branch', 'Minya', 17),
+(113, 'Sohag City Library', 'Sohag', 19), (114, 'Luxor East', 'Luxor', 9), (115, 'Aswan South', 'Aswan', 10), (116, 'Hurghada Branch', 'Hurghada', 7),
+(117, 'Zagazig Library', 'Zagazig', 14), (118, 'Kafr El Sheikh Br', 'Kafr El Sheikh', 4), (119, 'Damietta Branch', 'Damietta', 20), (120, 'Shubra Library', 'Shubra, Cairo', 1);
+
+-- 3. Category Main Table (60 Records to cover all subclasses)
+INSERT INTO Category (Category_ID, Category_Name, Age_Group, CategoryType) VALUES
+(1, 'Fiction A', 'Adults', 'Fiction'), (2, 'Fiction B', 'Teens', 'Fiction'), (3, 'Fiction C', 'Kids', 'Fiction'), (4, 'Fiction D', 'Adults', 'Fiction'), (5, 'Fiction E', 'Teens', 'Fiction'), (6, 'Fiction F', 'Kids', 'Fiction'), (7, 'Fiction G', 'All', 'Fiction'),
+(8, 'Sci A', 'University', 'Scientific'), (9, 'Sci B', 'Professional', 'Scientific'), (10, 'Sci C', 'University', 'Scientific'), (11, 'Sci D', 'Doctorate', 'Scientific'), (12, 'Sci E', 'School', 'Scientific'), (13, 'Sci F', 'University', 'Scientific'), (14, 'Sci G', 'Professional', 'Scientific'),
+(15, 'Dev A', 'Professional', 'Development'), (16, 'Dev B', 'Teens', 'Development'), (17, 'Dev C', 'All', 'Development'), (18, 'Dev D', 'Professional', 'Development'), (19, 'Dev E', 'Students', 'Development'), (20, 'Dev F', 'Owners', 'Development'),
+(21, 'Fiction H', 'Adults', 'Fiction'), (22, 'Fiction I', 'Teens', 'Fiction'), (23, 'Fiction J', 'Kids', 'Fiction'), (24, 'Fiction K', 'Adults', 'Fiction'), (25, 'Fiction L', 'Teens', 'Fiction'), (26, 'Fiction M', 'Kids', 'Fiction'), (27, 'Fiction N', 'All', 'Fiction'), (28, 'Fiction O', 'Adults', 'Fiction'), (29, 'Fiction P', 'Teens', 'Fiction'), (30, 'Fiction Q', 'Kids', 'Fiction'), (31, 'Fiction R', 'Adults', 'Fiction'), (32, 'Fiction S', 'Teens', 'Fiction'), (33, 'Fiction T', 'Kids', 'Fiction'),
+(34, 'Sci H', 'University', 'Scientific'), (35, 'Sci I', 'Professional', 'Scientific'), (36, 'Sci J', 'University', 'Scientific'), (37, 'Sci K', 'Doctorate', 'Scientific'), (38, 'Sci L', 'School', 'Scientific'), (39, 'Sci M', 'University', 'Scientific'), (40, 'Sci N', 'Professional', 'Scientific'), (41, 'Sci O', 'University', 'Scientific'), (42, 'Sci P', 'Professional', 'Scientific'), (43, 'Sci Q', 'University', 'Scientific'), (44, 'Sci R', 'Doctorate', 'Scientific'), (45, 'Sci S', 'School', 'Scientific'), (46, 'Sci T', 'University', 'Scientific'),
+(47, 'Dev G', 'Professional', 'Development'), (48, 'Dev H', 'Teens', 'Development'), (49, 'Dev I', 'All', 'Development'), (50, 'Dev J', 'Professional', 'Development'), (51, 'Dev K', 'Students', 'Development'), (52, 'Dev L', 'Owners', 'Development'), (53, 'Dev M', 'Professional', 'Development'), (54, 'Dev N', 'Teens', 'Development'), (55, 'Dev O', 'All', 'Development'), (56, 'Dev P', 'Professional', 'Development'), (57, 'Dev Q', 'Students', 'Development'), (58, 'Dev R', 'Owners', 'Development'), (59, 'Dev S', 'Professional', 'Development'), (60, 'Dev T', 'Teens', 'Development');
+
+-- 4. Fiction (20 Records)
+INSERT INTO Fiction (Category_ID, Genre) VALUES 
+(1,'Drama'),(2,'Sci-Fi'),(3,'Fairytale'),(4,'Mystery'),(5,'Horror'),(6,'Fantasy'),(7,'Poetry'),(21,'Classic'),(22,'Action'),(23,'Adventure'),
+(24,'Satire'),(25,'Mythology'),(26,'Legend'),(27,'Folklore'),(28,'Historical'),(29,'Crime'),(30,'Thriller'),(31,'Romance'),(32,'Western'),(33,'Comedy');
+
+-- 5. Scientific (20 Records)
+INSERT INTO Scientific (Category_ID, AcademicLevel, SubjectArea) VALUES 
+(8,'UG','Physics'),(9,'PG','Chemistry'),(10,'Researcher','Biology'),(11,'PhD','Medicine'),(12,'HighSchool','Math'),(13,'Professional','IT'),(14,'Professional','Finance'),(34,'UG','Geology'),(35,'PG','Astronomy'),(36,'Researcher','AI'),
+(37,'PhD','Genetics'),(38,'HighSchool','Algebra'),(39,'UG','Sociology'),(40,'Professional','Law'),(41,'UG','Engineering'),(42,'PG','Statistics'),(43,'Researcher','Quantum'),(44,'PhD','Neuroscience'),(45,'HighSchool','History'),(46,'UG','Ethics');
+
+-- 6. Development (20 Records)
+INSERT INTO Development (Category_ID, SkillType, TargetAudience) VALUES 
+(15,'Mgmt','Employees'),(16,'Leadership','Execs'),(17,'Comm','Students'),(18,'SoftSkills','General'),(19,'Psych','Teens'),(20,'Marketing','Owners'),(47,'Sales','Team'),(48,'TimeMgmt','All'),(49,'Focus','Students'),(50,'EmotionalInt','Managers'),
+(51,'Negotiation','Sales'),(52,'Creativity','Artists'),(53,'Writing','Authors'),(54,'SelfEsteem','Kids'),(55,'Tech','Engineers'),(56,'Finance','Everyone'),(57,'CriticalThink','Academic'),(58,'Design','Creative'),(59,'Ethics','Staff'),(60,'Growth','Leaders');
+
+-- 7. Member (20 Records)
+INSERT INTO Member (Member_ID, First_Name, Middle_Name, Last_Name, Email, City, Street_Number, Zip_Code, MemberType, SubscriptionFee, SubscriptionExpiry) VALUES
+(1, 'Ahmed', 'Ali', 'Hassan', 'ahmed@email.com', 'Cairo', '12', '11511', 'Regular', NULL, NULL),
+(2, 'Sara', 'Mohamed', 'Zaki', 'sara@email.com', 'Alexandria', '5', '21500', 'Premium', 500.00, '2027-01-01'),
+(3, 'Omar', 'Khaled', 'Said', 'omar@email.com', 'Giza', '22', '12611', 'Regular', NULL, NULL),
+(4, 'Mona', 'Ibrahim', 'Ezz', 'mona@email.com', 'Cairo', '8', '11311', 'Premium', 500.00, '2027-02-15'),
+(5, 'Youssef', 'Nabil', 'Fahmy', 'youssef@email.com', 'Tanta', '45', '31511', 'Regular', NULL, NULL),
+(6, 'Layla', 'Mahmoud', 'Salem', 'layla@email.com', 'Mansoura', '3', '35511', 'Premium', 500.00, '2026-12-30'),
+(7, 'Hany', 'Adel', 'Ramzy', 'hany@email.com', 'Cairo', '10', '11835', 'Regular', NULL, NULL),
+(8, 'Dina', 'Samir', 'Fouad', 'dina@email.com', 'Alexandria', '14', '21600', 'Premium', 500.00, '2027-05-20'),
+(9, 'Mostafa', 'Gad', 'Moussa', 'mostafa@email.com', 'Assiut', '7', '71511', 'Regular', NULL, NULL),
+(10, 'Noha', 'Kamal', 'Bakr', 'noha@email.com', 'Suez', '90', '43511', 'Premium', 500.00, '2026-11-11'),
+(11, 'Karem', 'Ehab', 'Yassin', 'karem@email.com', 'Cairo', '33', '11566', 'Regular', NULL, NULL),
+(12, 'Fatma', 'Reda', 'Soliman', 'fatma@email.com', 'Ismailia', '1', '41511', 'Premium', 500.00, '2027-03-01'),
+(13, 'Amr', 'Wagdy', 'Tarek', 'amr@email.com', 'Giza', '60', '12511', 'Regular', NULL, NULL),
+(14, 'Mariam', 'Ayman', 'Nour', 'mariam@email.com', 'Cairo', '55', '11711', 'Premium', 500.00, '2027-08-15'),
+(15, 'Tamer', 'Hossam', 'Amer', 'tamer@email.com', 'Luxor', '4', '85511', 'Regular', NULL, NULL),
+(16, 'Basma', 'Sherif', 'Anwar', 'basma@email.com', 'Aswan', '2', '81511', 'Premium', 500.00, '2026-10-05'),
+(17, 'Ziad', 'Gaber', 'Refaat', 'ziad@email.com', 'Cairo', '18', '11341', 'Regular', NULL, NULL),
+(18, 'Salma', 'Hamdy', 'Amin', 'salma@email.com', 'Alexandria', '11', '21411', 'Premium', 500.00, '2027-09-10'),
+(19, 'Walid', 'Raafat', 'Farid', 'walid@email.com', 'Port Said', '21', '42511', 'Regular', NULL, NULL),
+(20, 'Ghada', 'Fathy', 'Omar', 'ghada@email.com', 'Tanta', '17', '31512', 'Premium', 500.00, '2027-04-12');
+
+-- 8. PhoneMember (20 Records)
+INSERT INTO PhoneMember (Member_ID, Phone) VALUES 
+(1, '01011111111'), (2, '01233333333'), (3, '01144444444'), (4, '01555555555'), (5, '01066666666'),
+(6, '01077777777'), (7, '01288888888'), (8, '01199999999'), (9, '01510101010'), (10, '01011121314'),
+(11, '01012131415'), (12, '01213141516'), (13, '01114151617'), (14, '01515161718'), (15, '01016171819'),
+(16, '01017181920'), (17, '01218192021'), (18, '01119202122'), (19, '01520212223'), (20, '01021222324');
+
+-- 9. Staff (20 Records)
+INSERT INTO Staff (employee_ID, Manager_ID, Phone, Email, Net_Salary, firstname, middlename, lastname, Branch_ID, Warehouse_ID) VALUES
+(1, NULL, '0101', 'm1@eru.eg', 15000, 'Ghada', 'Nabil', 'Said', 101, NULL),
+(2, 1, '0102', 's1@eru.eg', 8000, 'Mennatullah', 'Khaled', 'Ali', 101, NULL),
+(3, NULL, '0103', 'wm1@eru.eg', 12000, 'Tarek', 'Hassan', 'Mahmoud', NULL, 1),
+(4, 3, '0104', 'ws1@eru.eg', 7000, 'Ibrahim', 'Saad', 'Nour', NULL, 1),
+(5, 1, '0105', 's2@eru.eg', 7500, 'Nada', 'Sayed', 'Gomaa', 102, NULL),
+(6, NULL, '0106', 'm2@eru.eg', 14000, 'Khaled', 'Adel', 'Samy', 103, NULL),
+(7, 6, '0107', 's3@eru.eg', 8200, 'Eman', 'Ahmed', 'Gad', 103, NULL),
+(8, NULL, '0108', 'wm2@eru.eg', 11500, 'Samy', 'Raafat', 'Zaky', NULL, 2),
+(9, 8, '0109', 'ws2@eru.eg', 6800, 'Heba', 'Farouk', 'Younis', NULL, 2),
+(10, 1, '0110', 's4@eru.eg', 7600, 'Rania', 'Kamal', 'Amer', 104, NULL),
+(11, NULL, '0111', 'm3@eru.eg', 13500, 'Said', 'Moussa', 'Hamad', 105, NULL),
+(12, 11, '0112', 's5@eru.eg', 7900, 'Ali', 'Zain', 'Osman', 105, NULL),
+(13, NULL, '0113', 'wm3@eru.eg', 11000, 'Fady', 'Ezzat', 'Mounir', NULL, 3),
+(14, 13, '0114', 'ws3@eru.eg', 6500, 'Hend', 'Magdy', 'Nabil', NULL, 3),
+(15, 6, '0115', 's6@eru.eg', 8100, 'Mohamed', 'Reda', 'Eid', 106, NULL),
+(16, NULL, '0116', 'm4@eru.eg', 13000, 'Hassan', 'Atef', 'Amin', 107, NULL),
+(17, 16, '0117', 's7@eru.eg', 7700, 'Naira', 'Saber', 'Kandil', 107, NULL),
+(18, 3, '0118', 'ws4@eru.eg', 6900, 'Amany', 'Lotfy', 'Fouad', NULL, 4),
+(19, 1, '0119', 's8@eru.eg', 7400, 'Sherif', 'Mounir', 'Bassem', 108, NULL),
+(20, NULL, '0120', 'm5@eru.eg', 14500, 'Osama', 'Galal', 'Wahba', 109, NULL);
+
+-- 10. Book (40 Records to split into Physical and Digital)
+INSERT INTO Book (Book_ID, Title, Author, Publisher, Age_Group, Category_ID) VALUES
+(201, 'Gatsby', 'Fitzgerald', 'Scribner', 'Adults', 1), (202, 'Foundation', 'Asimov', 'Gnome', 'Teens', 2), (203, 'Physics', 'Young', 'Pearson', 'University', 3), (204, 'HR', 'Dessler', 'Pearson', 'Professional', 4),
+(205, 'Oliver', 'Dickens', 'Bentley', 'Kids', 5), (206, 'Chemistry', 'Morrison', 'Pearson', 'University', 6), (207, 'Why', 'Sinek', 'Penguin', 'Professional', 7), (208, 'Sherlock', 'Doyle', 'Newnes', 'Adults', 8),
+(209, 'Biology', 'Watson', 'Cold Spring', 'University', 9), (210, 'TED', 'Gallo', 'Martins', 'Teens', 10), (211, 'Peace', 'Tolstoy', 'Messenger', 'Adults', 1), (212, 'Math', 'Apostol', 'Wiley', 'School', 12),
+(213, 'C++', 'Stroustrup', 'Addison', 'Adults', 13), (214, 'Work', 'Newport', 'Central', 'All', 14), (215, 'HP1', 'Rowling', 'Bloomsbury', 'Kids', 15), (216, 'Econ', 'Samuelson', 'McGraw', 'Professional', 16),
+(217, 'Habits', 'Clear', 'Avery', 'Teens', 17), (218, 'Raven', 'Poe', 'Mirror', 'Adults', 18), (219, 'Medicine', 'Harrison', 'McGraw', 'Professional', 19), (220, 'Digital', 'Kotler', 'Pearson', 'Adults', 20),
+(221, 'Book 21', 'Author 21', 'Pub 21', 'Adults', 1), (222, 'Book 22', 'Author 22', 'Pub 22', 'Teens', 2), (223, 'Book 23', 'Author 23', 'Pub 23', 'University', 3), (224, 'Book 24', 'Author 24', 'Pub 24', 'Professional', 4),
+(225, 'Book 25', 'Author 25', 'Pub 25', 'Kids', 5), (226, 'Book 26', 'Author 26', 'Pub 26', 'University', 6), (227, 'Book 27', 'Author 27', 'Pub 27', 'Professional', 7), (228, 'Book 28', 'Author 28', 'Pub 28', 'Adults', 8),
+(229, 'Book 29', 'Author 29', 'Pub 29', 'University', 9), (230, 'Book 30', 'Author 30', 'Pub 30', 'Teens', 10), (231, 'Book 31', 'Author 31', 'Pub 31', 'Adults', 1), (232, 'Book 32', 'Author 32', 'Pub 32', 'School', 12),
+(233, 'Book 33', 'Author 33', 'Pub 33', 'Adults', 13), (234, 'Book 34', 'Author 34', 'Pub 34', 'All', 14), (235, 'Book 35', 'Author 35', 'Pub 35', 'Kids', 15), (236, 'Book 36', 'Author 36', 'Pub 36', 'Professional', 16),
+(237, 'Book 37', 'Author 37', 'Pub 37', 'Teens', 17), (238, 'Book 38', 'Author 38', 'Pub 38', 'Adults', 18), (239, 'Book 39', 'Author 39', 'Pub 39', 'Professional', 19), (240, 'Book 40', 'Author 40', 'Pub 40', 'Adults', 20);
+
+-- 11. Physical (20 Records)
+INSERT INTO Physical (Book_ID, ShelfLocation, Status) VALUES 
+(201, 'A-1', 'Available'), (202, 'A-1', 'Available'), (203, 'C-1', 'Available'), (204, 'B-1', 'Available'), (205, 'A-2', 'Damaged'), (206, 'C-2', 'Available'), (207, 'B-2', 'Available'), (208, 'A-3', 'Available'), (209, 'C-3', 'Available'), (210, 'B-3', 'Available'),
+(221, 'D-1', 'Available'), (222, 'D-2', 'Available'), (223, 'E-1', 'Available'), (224, 'E-2', 'Available'), (225, 'F-1', 'Available'), (226, 'F-2', 'Available'), (227, 'G-1', 'Available'), (228, 'G-2', 'Available'), (229, 'H-1', 'Available'), (230, 'H-2', 'Available');
+
+-- 12. Digital (20 Records)
+INSERT INTO Digital (Book_ID, FileFormat, FileSize, URL) VALUES 
+(211, 'PDF', 15, 'url1'), (212, 'EPUB', 10, 'url2'), (213, 'PDF', 25, 'url3'), (214, 'MOBI', 8, 'url4'), (215, 'MOBI', 12, 'url5'), (216, 'PDF', 30, 'url6'), (217, 'EPUB', 5, 'url7'), (218, 'PDF', 7, 'url8'), (219, 'PDF', 50, 'url9'), (220, 'PDF', 18, 'url10'),
+(231, 'PDF', 20, 'url11'), (232, 'PDF', 22, 'url12'), (233, 'EPUB', 14, 'url13'), (234, 'PDF', 19, 'url14'), (235, 'PDF', 11, 'url15'), (236, 'MOBI', 9, 'url16'), (237, 'PDF', 44, 'url17'), (238, 'EPUB', 13, 'url18'), (239, 'PDF', 21, 'url19'), (240, 'PDF', 16, 'url20');
+
+-- 13. Branch_Stock (20 Records)
+INSERT INTO Branch_Stock (Branch_ID, Book_ID, Quantity_Borrowed, Quantity_Available) VALUES 
+(101, 201, 5, 10), (101, 202, 2, 8), (102, 203, 0, 15), (102, 204, 3, 5), (103, 205, 10, 20), 
+(104, 206, 1, 4), (105, 207, 7, 3), (106, 208, 0, 12), (107, 209, 4, 6), (108, 210, 2, 10), 
+(109, 211, 8, 2), (110, 212, 0, 14), (111, 213, 5, 5), (112, 214, 3, 9), (113, 215, 15, 5), 
+(114, 216, 2, 8), (115, 217, 0, 20), (116, 218, 6, 4), (117, 219, 1, 19), (118, 220, 4, 11);
+
+-- 14. Borrow (20 Records)
+INSERT INTO Borrow (Member_ID, Book_ID, Borrow_Date, Due_Date, FineAmount, Price, MaxBooks) VALUES
+(1, 201, '2026-05-01', '2026-05-15', 0, 150, 3), (2, 202, '2026-05-01', '2026-05-15', 0, 200, 5), (3, 203, '2026-05-01', '2026-05-15', 0, 450, 3), (4, 204, '2026-05-01', '2026-05-15', 0, 300, 5),
+(5, 205, '2026-05-01', '2026-05-15', 0, 120, 3), (6, 206, '2026-05-01', '2026-05-15', 0, 500, 5), (7, 207, '2026-05-01', '2026-05-15', 0, 250, 3), (8, 208, '2026-05-01', '2026-05-15', 0, 180, 5),
+(9, 209, '2026-05-01', '2026-05-15', 0, 600, 3), (10, 210, '2026-05-01', '2026-05-15', 0, 220, 5), (11, 211, '2026-05-01', '2026-05-15', 0, 350, 3), (12, 212, '2026-05-01', '2026-05-15', 0, 400, 5),
+(13, 213, '2026-05-01', '2026-05-15', 0, 550, 3), (14, 214, '2026-05-01', '2026-05-15', 0, 280, 5), (15, 215, '2026-05-01', '2026-05-15', 0, 190, 3), (16, 216, '2026-05-01', '2026-05-15', 0, 420, 5),
+(17, 217, '2026-05-01', '2026-05-15', 0, 230, 3), (18, 218, '2026-05-01', '2026-05-15', 0, 140, 5), (19, 219, '2026-05-01', '2026-05-15', 0, 700, 3), (20, 220, '2026-05-01', '2026-05-15', 0, 310, 5);
