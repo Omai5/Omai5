@@ -219,8 +219,9 @@ CREATE TABLE Category (
     Category_ID INT PRIMARY KEY,
     Category_Name VARCHAR(100) not null,
     Age_Group VARCHAR(50) not null ,
-    CategoryType varchar(20) null
-   check (CategoryType in ('Fiction', 'Scientific', 'Development'))
+    CategoryType varchar(20) null 
+   check (CategoryType in 
+   ('Fiction', 'Scientific', 'Development'))
 );
 create table Fiction (
     Category_ID int primary key,
@@ -276,27 +277,20 @@ create table PhoneMember (
 
 CREATE TABLE Staff (
     employee_ID INT PRIMARY KEY,
-
     Manager_ID INT NULL,
-
     Phone VARCHAR(15) NOT NULL UNIQUE,
     Email VARCHAR(25) NOT NULL UNIQUE,
-
     Net_Salary DECIMAL(8,2) NOT NULL CHECK (Net_Salary > 0) ,
-
     firstname VARCHAR(50) NOT NULL,
     middlename VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
-
     Branch_ID INT NULL,
-    warehouse_ID INT NULL,
-
+    Warehouse_ID INT NULL,
 
     FOREIGN KEY (Manager_ID) REFERENCES Staff(employee_ID),
     FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID),
-    FOREIGN KEY (warehouse_ID) REFERENCES Warehouse(warehouse_ID),
+    FOREIGN KEY (Warehouse_ID) REFERENCES Warehouse(Warehouse_ID),
 
-    
     CHECK (
         (Branch_ID IS NOT NULL AND warehouse_ID IS NULL)
      OR (Branch_ID IS NULL AND warehouse_ID IS NOT NULL)
