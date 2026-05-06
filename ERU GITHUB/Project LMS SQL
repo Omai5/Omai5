@@ -203,61 +203,132 @@ USE LibraryDB;
 
 CREATE TABLE Warehouse (
     Warehouse_ID INT PRIMARY KEY,
-    Warehouse_Name VARCHAR(100),
-    Warehouse_Location VARCHAR(100)
+    Warehouse_Name VARCHAR(100) not null,
+    Warehouse_Location VARCHAR(100) not null
 );
 
 CREATE TABLE Branch (
     Branch_ID INT PRIMARY KEY,
-    Branch_Name VARCHAR(100),
-    Branch_Location VARCHAR(100),
-    Warehouse_ID INT,
+    Branch_Name VARCHAR(100) not null,
+    Branch_Location VARCHAR(100) not null,
+    Warehouse_ID INT not null ,
     FOREIGN KEY (Warehouse_ID) REFERENCES Warehouse(Warehouse_ID)
 );
 
 CREATE TABLE Category (
     Category_ID INT PRIMARY KEY,
-    Category_Name VARCHAR(100),
-    Age_Group VARCHAR(50)
+    Category_Name VARCHAR(100) not null,
+    Age_Group VARCHAR(50) not null
+    CategoryType varchar(20) null
+   check (CategoryType in ('Fiction', 'Scientific', 'Development'))
 );
-
+create table Fiction (
+    Category_ID int primary key,
+    Genre varchar(50) not null,
+    foreign key (Category_ID) 
+        references Category(Category_ID)
+);
+create table Scientific (
+    Category_ID int primary key,
+    AcademicLevel varchar(50) not null,
+    SubjectArea varchar(50) not null,
+    foreign key (Category_ID) 
+        references Category(Category_ID)
+);
+create table Development (
+    Category_ID int primary key,
+    SkillType varchar(50) not null,
+    TargetAudience varchar(50) not null,
+    foreign key (Category_ID) 
+        references Category(Category_ID)
+);
 CREATE TABLE Member (
     Member_ID INT PRIMARY KEY,
-    First_Name VARCHAR(50),
-    Middle_Name VARCHAR(50),
-    Last_Name VARCHAR(50),
-    Phone VARCHAR(20),
-    Email VARCHAR(100),
-    City VARCHAR(50),
-    Street_Number VARCHAR(20),
-    Zip_Code VARCHAR(20)
+    First_Name VARCHAR(50) not null,
+    Middle_Name VARCHAR(50) not null,
+    Last_Name VARCHAR(50) not null,
+    Email VARCHAR(100)not null,
+    City VARCHAR(50) not null,
+    Street_Number VARCHAR(20) not null,
+    Zip_Code VARCHAR(20) not null,
+    MemberType varchar(10) not null
+        check (MemberType in ('Regular', 'Premium')),
+    SubscriptionFee decimal(8,2) null,
+    SubscriptionExpiry date null,
+    constraint CHK_Membership check (
+        (MemberType = 'Regular'
+            and SubscriptionFee is null
+            and SubscriptionExpiry is null)
+        or
+        (MemberType = 'Premium'
+            and SubscriptionFee is not null
+            and SubscriptionExpiry is not null)
+    )
+);
+
+create table PhoneMember (
+    Member_ID int,
+    Phone varchar(20),
+    primary key (Member_ID, Phone),
+    foreign key (Member_ID) 
+        references Member(Member_ID)
 );
 
 CREATE TABLE Staff (
-    Employee_ID INT PRIMARY KEY,
-    First_Name VARCHAR(50),
-    Middle_Name VARCHAR(50),
-    Last_Name VARCHAR(50),
-    Phone VARCHAR(20),
-    Email VARCHAR(100),
-    Net_Salary DECIMAL(10,2) CHECK (Net_Salary > 0),
-    Manager_ID INT,
-    Branch_ID INT,
-    Warehouse_ID INT,
+    employee_ID INT PRIMARY KEY,
+
+    Manager_ID INT NULL,
+
+    Phone VARCHAR(15) NOT NULL UNIQUE,
+    Email VARCHAR(25) NOT NULL UNIQUE,
+
+    NetSalary DECIMAL(8,2) NOT NULL,
+
+    firstname VARCHAR(50) NOT NULL,
+    middlename VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+
+    Branch_ID INT NULL,
+    warehouse_ID INT NULL,
+
+
+    FOREIGN KEY (Manager_ID) REFERENCES Staff(employee_ID),
     FOREIGN KEY (Branch_ID) REFERENCES Branch(Branch_ID),
-    FOREIGN KEY (Warehouse_ID) REFERENCES Warehouse(Warehouse_ID)
+    FOREIGN KEY (warehouse_ID) REFERENCES Warehouse(warehouse_ID),
+
+    
+    CHECK (
+        (Branch_ID IS NOT NULL AND warehouse_ID IS NULL)
+     OR (Branch_ID IS NULL AND warehouse_ID IS NOT NULL)
+    )
 );
 
 CREATE TABLE Book (
     Book_ID INT PRIMARY KEY,
-    Title VARCHAR(100),
-    Author VARCHAR(100),
-    Publisher VARCHAR(100),
+    Title VARCHAR(100) not null,
+    Author VARCHAR(100) not null,
+    Publisher VARCHAR(100) ,
     Age_Group VARCHAR(50),
     Category_ID INT,
-    Book_Type VARCHAR(20) CHECK (Book_Type IN ('Physical','Digital')),
-    FOREIGN KEY (Category_ID) REFERENCES Category(Category_ID)
+    foreign key (Category_ID) 
+    references Category(Category_ID)
 );
+create table Physical (
+    Book_ID int primary key,
+    ShelfLocation varchar(50) not null,
+    Status varchar(50) not null,
+    foreign key (Book_ID) 
+        references Book(Book_ID)
+);
+create table Digital (
+    Book_ID int primary key,
+    FileFormat varchar(50) not null,
+    FileSize decimal(6,2) not null,
+    URL varchar(200) not null,
+    foreign key (Book_ID) 
+        references Book(Book_ID)
+);
+
 
 CREATE TABLE Branch_Stock (
     Branch_ID INT,
@@ -272,9 +343,12 @@ CREATE TABLE Branch_Stock (
 CREATE TABLE Borrow (
     Member_ID INT,
     Book_ID INT,
-    Borrow_Date DATE,
-    Due_Date DATE,
-    PRIMARY KEY (Member_ID, Book_ID, Borrow_Date),
+    Borrow_Date DATE not null,
+    Due_Date DATE not null,
+    FineAmount decimal(6,2) default 0,
+    Price decimal(6,2) not null,
+    MaxBooks int not null,
+    PRIMARY KEY (Member_ID, Book_ID),
     FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID),
     FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID)
 );
