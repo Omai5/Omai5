@@ -476,3 +476,18 @@ INSERT INTO Borrow (Member_ID, Book_ID, Borrow_Date, Due_Date, FineAmount, Price
 (9, 209, '2026-05-01', '2026-05-15', 0, 600, 3), (10, 210, '2026-05-01', '2026-05-15', 0, 220, 5), (11, 211, '2026-05-01', '2026-05-15', 0, 350, 3), (12, 212, '2026-05-01', '2026-05-15', 0, 400, 5),
 (13, 213, '2026-05-01', '2026-05-15', 0, 550, 3), (14, 214, '2026-05-01', '2026-05-15', 0, 280, 5), (15, 215, '2026-05-01', '2026-05-15', 0, 190, 3), (16, 216, '2026-05-01', '2026-05-15', 0, 420, 5),
 (17, 217, '2026-05-01', '2026-05-15', 0, 230, 3), (18, 218, '2026-05-01', '2026-05-15', 0, 140, 5), (19, 219, '2026-05-01', '2026-05-15', 0, 700, 3), (20, 220, '2026-05-01', '2026-05-15', 0, 310, 5);
+
+
+alter table Member
+add DepositAmount decimal(8,2) null
+
+update Member
+set DepositAmount = 200
+where MemberType = 'Regular'
+
+alter table Member
+add constraint CHK_Deposit check (
+    (MemberType = 'Regular' and DepositAmount is not null)
+    or
+    (MemberType = 'Premium' and DepositAmount is null)
+)
