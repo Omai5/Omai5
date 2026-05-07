@@ -198,6 +198,11 @@ INSERT INTO Staff VALUES
 (10,3, '01055555555', 'mahmoud.staff@hi.com', 5300, 'Mahmoud', 'Sayed', 'Fathy', NULL, 2);
 
 --///////////////////EERD///////////////////////////////////////
+
+/* =========================
+   ========== DDL ==========
+   ========================= */
+
 CREATE DATABASE LibraryDB;
 USE LibraryDB;
 
@@ -346,6 +351,10 @@ CREATE TABLE Borrow (
     FOREIGN KEY (Member_ID) REFERENCES Member(Member_ID),
     FOREIGN KEY (Book_ID) REFERENCES Book(Book_ID)
 );
+/* =========================
+   ========== DML ==========
+   ========================= */
+
 -- 1. Warehouse (20 Records)
 INSERT INTO Warehouse (Warehouse_ID, Warehouse_Name, Warehouse_Location) VALUES
 (1, 'Central Cairo Hub', 'Cairo'), (2, 'Alexandria Depot', 'Alexandria'), (3, 'Giza Storage', 'Giza'), (4, 'Delta Logistics', 'Tanta'),
@@ -490,4 +499,195 @@ add constraint CHK_Deposit check (
     (MemberType = 'Regular' and DepositAmount is not null)
     or
     (MemberType = 'Premium' and DepositAmount is null)
+)
+--////update///--
+update Borrow
+set FineAmount = 50
+where Member_ID = 1 and Book_ID = 201
+
+update Borrow
+set FineAmount = 100
+where Member_ID = 5 and Book_ID = 205
+
+update Borrow
+set FineAmount = 75
+where Member_ID = 11 and Book_ID = 211
+
+alter table Member
+add DepositAmount decimal(8,2) null
+
+update Member
+set DepositAmount = 200
+where MemberType = 'Regular'
+
+alter table Member
+add constraint CHK_Deposit check (
+    (MemberType = 'Regular' and DepositAmount is not null)
+    or
+    (MemberType = 'Premium' and DepositAmount is null)
+)
+--//////////////////////////////////////
+
+/* =========================
+   ===== STORED PROCS =====
+   ========================= */
+
+--borrow book procedure (Dynamic)--
+create proc sp_borrow_book
+    @Book_ID as int,
+    @Member_ID as int,
+    @Price as decimal(6,2)
+as
+begin
+
+    declare @Due_Date as date
+    declare @Borrow_Date as date = getdate()
+    declare @MaxBooks as int
+
+    select 
+        @Due_Date = case MemberType
+            when 'Premium' then dateadd(day, 30, getdate())
+            else dateadd(day, 7, getdate())
+        end,
+        @MaxBooks = case MemberType
+            when 'Premium' then 10
+            else 3
+        end
+    from Member
+    where Member_ID = @Member_ID
+
+    insert into Borrow values
+    (@Member_ID, @Book_ID, @Borrow_Date, @Due_Date, 0, @Price, @MaxBooks)
+
+end
+
+exec sp_borrow_book 1, 2, 250
+exec sp_borrow_book 3, 11, 350
+
+
+--upgrade member to premium (Dynamic)--
+create proc sp_upgrade_member
+    @Member_ID as int,
+    @SubscriptionFee as decimal(8,2)
+as
+begin
+
+    update Member
+    set MemberType = 'Premium',
+        SubscriptionFee = @SubscriptionFee,
+        SubscriptionExpiry = dateadd(year, 1, getdate())
+    where Member_ID = @Member_ID
+    and MemberType = 'Regular'
+
+end
+
+exec sp_upgrade_member 1, 200.00
+
+
+--check expired memberships (Static)--
+create proc sp_check_membership
+as
+begin
+
+    update Member
+    set MemberType = 'Regular',
+        SubscriptionFee = null,
+        SubscriptionExpiry = null
+    where MemberType = 'Premium'
+    and SubscriptionExpiry < getdate()
+
+end
+
+exec sp_check_membership
+/* =========================
+   ===== View =====
+   ========================= */
+
+--available books with category--
+create view AvailableBooksView
+as
+    select b.Book_ID, b.Title, b.Author, b.Publisher, c.Category_Name
+    from Book b
+    join Category c on b.Category_ID = c.Category_ID
+
+select * from AvailableBooksView
+
+--premium members with their subscription info--
+create view PremiumMembersView
+as
+    select Member_ID, First_Name, Last_Name, Email,
+           SubscriptionFee, SubscriptionExpiry
+    from Member
+    where MemberType = 'Premium'
+
+select * from PremiumMembersView
+
+--borrowed books with member details--
+create view BorrowDetailsView
+as
+    select m.First_Name, m.Last_Name, m.MemberType,
+           br.Borrow_Date, br.Due_Date, br.FineAmount
+    from Borrow br
+    join Member m on br.Member_ID = m.Member_ID
+
+select * from BorrowDetailsView
+
+--available books with category--
+create view AvailableBooksView
+as
+    select b.Book_ID, b.Title, b.Author, b.Publisher, c.Category_Name
+    from Book b
+    join Category c on b.Category_ID = c.Category_ID
+
+select * from AvailableBooksView
+
+--premium members with their subscription info--
+create view PremiumMembersView
+as
+    select Member_ID, First_Name, Last_Name, Email,
+           SubscriptionFee, SubscriptionExpiry
+    from Member
+    where MemberType = 'Premium'
+
+select * from PremiumMembersView
+
+--borrowed books with member details--
+create view BorrowDetailsView
+as
+    select m.First_Name, m.Last_Name, m.MemberType,
+           br.Borrow_Date, br.Due_Date, br.FineAmount
+    from Borrow br
+    join Member m on br.Member_ID = m.Member_ID
+
+select * from BorrowDetailsView
+
+/* =========================
+   ===== Report Queries =====
+   ========================= */
+
+--Report 1: Total books per category--
+select Category_Name, count(Book_ID) as TotalBooks
+from Book
+join Category on Book.Category_ID = Category.Category_ID
+group by Category_Name
+
+--Report 2: Members who have fines--
+select First_Name, Last_Name, FineAmount
+from Member
+join Borrow on Member.Member_ID = Borrow.Member_ID
+where FineAmount > 0
+
+--Report 3: Average fine per member type--
+select MemberType, avg(FineAmount) as AvgFine
+from Member
+join Borrow on Member.Member_ID = Borrow.Member_ID
+group by MemberType
+
+--Report 4: Members with fines (Nested)--
+select First_Name, Last_Name
+from Member
+where Member_ID in (
+    select Member_ID 
+    from Borrow 
+    where FineAmount > 0
 )
