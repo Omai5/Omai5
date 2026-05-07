@@ -612,6 +612,7 @@ as
 
 select * from AvailableBooksView
 
+
 --premium members with their subscription info--
 create view PremiumMembersView
 as
@@ -631,6 +632,7 @@ as
     join Member m on br.Member_ID = m.Member_ID
 
 select * from BorrowDetailsView
+
 
 --available books with category--
 create view AvailableBooksView
@@ -641,6 +643,8 @@ as
 
 select * from AvailableBooksView
 
+
+
 --premium members with their subscription info--
 create view PremiumMembersView
 as
@@ -650,6 +654,8 @@ as
     where MemberType = 'Premium'
 
 select * from PremiumMembersView
+
+
 
 --borrowed books with member details--
 create view BorrowDetailsView
@@ -661,6 +667,22 @@ as
 
 select * from BorrowDetailsView
 
+
+--updatable view for adding books--
+create view AddBookView
+as
+    select Book_ID, Title, Author, Publisher, Age_Group, Category_ID
+    from Book
+
+select * from AddBookView
+
+
+create view AddRegularMemberView
+as
+    select Member_ID, First_Name, Middle_Name, Last_Name,
+           Email, City, Street_Number, Zip_Code, MemberType
+    from Member
+    where MemberType = 'Regular'
 /* =========================
    ===== Report Queries =====
    ========================= */
