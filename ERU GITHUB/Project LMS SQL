@@ -515,19 +515,7 @@ update Borrow
 set FineAmount = 75
 where Member_ID = 11 and Book_ID = 211
 
-alter table Member
-add DepositAmount decimal(8,2) null
 
-update Member
-set DepositAmount = 200
-where MemberType = 'Regular'
-
-alter table Member
-add constraint CHK_Deposit check (
-    (MemberType = 'Regular' and DepositAmount is not null)
-    or
-    (MemberType = 'Premium' and DepositAmount is null)
-)
 --//////////////////////////////////////
 
 /* =========================
