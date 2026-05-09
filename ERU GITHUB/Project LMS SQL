@@ -624,17 +624,6 @@ as
 select * from BorrowDetailsView
 
 
---premium members with their subscription info--
-create view PremiumMembersView
-as
-    select Member_ID, First_Name, Last_Name, Email,
-           SubscriptionFee, SubscriptionExpiry
-    from Member
-    where MemberType = 'Premium'
-
-select * from PremiumMembersView
-
-
 
 --borrowed books with member details--
 create view BorrowDetailsView
