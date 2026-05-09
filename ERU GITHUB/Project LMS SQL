@@ -624,18 +624,6 @@ as
 select * from BorrowDetailsView
 
 
-
---borrowed books with member details--
-create view BorrowDetailsView
-as
-    select m.First_Name, m.Last_Name, m.MemberType,
-           br.Borrow_Date, br.Due_Date, br.FineAmount
-    from Borrow br
-    join Member m on br.Member_ID = m.Member_ID
-
-select * from BorrowDetailsView
-
-
 --updatable view for adding books--
 create view AddBookView
 as
