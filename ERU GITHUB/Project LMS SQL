@@ -636,7 +636,8 @@ select * from AddBookView
 create view AddRegularMemberView
 as
     select Member_ID, First_Name, Middle_Name, Last_Name,
-           Email, City, Street_Number, Zip_Code, MemberType
+           Email, City, Street_Number, Zip_Code, 
+           MemberType, DepositAmount
     from Member
     where MemberType = 'Regular'
 /* =========================
