@@ -669,3 +669,6 @@ where Member_ID in (
     from Borrow 
     where FineAmount > 0
 )
+--Report 5: Books never borrowed (Nested Query)— 
+select Title, Author from Book where Book_ID not in ( select 
+Book_ID from Borrow ) 
