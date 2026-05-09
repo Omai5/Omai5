@@ -521,12 +521,15 @@ where Member_ID = 11 and Book_ID = 211
 /* =========================
    ===== STORED PROCS =====
    ========================= */
+   select*from[dbo].[Borrow]
+   select*from[dbo].[Member]
+
 
 --borrow book procedure (Dynamic)--
 create proc sp_borrow_book
     @Book_ID as int,
     @Member_ID as int,
-    @Price as decimal(6,2)
+    @Price as decimal(6,2) --100000.60
 as
 begin
 
@@ -554,6 +557,9 @@ end
 exec sp_borrow_book 1, 2, 250
 exec sp_borrow_book 3, 11, 350
 
+exec sp_borrow_book 221,21,600
+
+exec sp_borrow_book  
 
 --upgrade member to premium (Dynamic)--
 create proc sp_upgrade_member
@@ -565,7 +571,8 @@ begin
     update Member
     set MemberType = 'Premium',
         SubscriptionFee = @SubscriptionFee,
-        SubscriptionExpiry = dateadd(year, 1, getdate())
+        SubscriptionExpiry = dateadd(year, 1, getdate()),
+        DepositAmount = null        
     where Member_ID = @Member_ID
     and MemberType = 'Regular'
 
@@ -573,8 +580,8 @@ end
 
 exec sp_upgrade_member 1, 200.00
 
+exec sp_upgrade_member 23 , 1200.99
 
---check expired memberships (Static)--
 create proc sp_check_membership
 as
 begin
@@ -582,13 +589,16 @@ begin
     update Member
     set MemberType = 'Regular',
         SubscriptionFee = null,
-        SubscriptionExpiry = null
+        SubscriptionExpiry = null,
+        DepositAmount = 200          
     where MemberType = 'Premium'
     and SubscriptionExpiry < getdate()
 
 end
 
 exec sp_check_membership
+
+
 /* =========================
    ===== View =====
    ========================= */
@@ -640,6 +650,24 @@ as
            MemberType, DepositAmount
     from Member
     where MemberType = 'Regular'
+
+    select*from AddRegularMemberView
+
+    ----------------------
+
+    insert into AddRegularMemberView values (21,'omar','abdelrhman','ali','omar.ali.set@gmail.com','elshrqua','zagazg','899','Regular',200)
+   
+   insert into AddRegularMemberView values
+    (22, 'Mohamed', 'Ali', 'Hassan','mohamed@gmail.com', 'Cairo', '15', '11700', 'Regular',200)
+
+    insert into AddRegularMemberView values
+    (23, 'Ahmed', 'Tark', 'mohamed ','ahmed.999@gmail.com', 'US', '87', '44511', 'Regular',450)
+
+    insert into [dbo].[Member] values
+    (24, 'meo.meo', 'po.po', 'be.be ','meomeo.999@gmail.com', 'Uk', '00', '92893', 'Premium',999.99,'2025-4-1' )
+
+    select*from[dbo].[Member]
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 /* =========================
    ===== Report Queries =====
    ========================= */
@@ -671,5 +699,14 @@ where Member_ID in (
     where FineAmount > 0
 )
 --Report 5: Books never borrowed (Nested Query)— 
-select Title, Author from Book where Book_ID not in ( select 
-Book_ID from Borrow ) 
+select Book_ID, Title, Author from Book where Book_ID not in ( select Book_ID from Borrow ) 
+
+--Report 6: member never borrowed (Nested Query)— 
+select [Member_ID],[First_Name],[Last_Name] from [dbo].[Member] 
+where [Member_ID] not in ( select  [Member_ID] from Borrow ) 
+
+--Report 7: get expired premium members--
+select Member_ID, First_Name, Last_Name, Email, SubscriptionExpiry
+from Member
+where MemberType = 'Premium'
+and SubscriptionExpiry < getdate()
