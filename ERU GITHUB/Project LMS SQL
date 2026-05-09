@@ -624,17 +624,6 @@ as
 select * from BorrowDetailsView
 
 
---available books with category--
-create view AvailableBooksView
-as
-    select b.Book_ID, b.Title, b.Author, b.Publisher, c.Category_Name
-    from Book b
-    join Category c on b.Category_ID = c.Category_ID
-
-select * from AvailableBooksView
-
-
-
 --premium members with their subscription info--
 create view PremiumMembersView
 as
