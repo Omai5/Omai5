@@ -1,42 +1,40 @@
 #include <iostream>
 using namespace std;
 
+
 int main()
 {
-    cout << "===================array================\n";
-    int element = 0;
-    int index = 0;
-    int size = 5;
-    int arr[] = {10, 20, 30, 40, 50};
-    cout << "the array befor editing : \n ";
-    for (int i = 0; i < size; i++)
+    cout << "=====================array=====================\n" << endl;
+    int const capacity = 10;
+    int currentSize = 5;
+    int arr[capacity] = {1, 2, 3, 4, 5};
+    for (int i = 0; i < currentSize; i++)
     {
-        cout << " " << "  the array :  " << arr[i] << " ";
-        cout << endl;
-    }
-    cout << "array after editing : \n";
-    cout << "enter the element : ";
-    cin >> element;
-    cout << "enter the index : ";
-    cin >> index;
-    if (index <= size)
-    {
-        for (int i = size; i < index; i--)
-        {
-            arr[i] = arr[i - 1];
-        }
-        arr[index] = element;
-        size++;
-    }
-    else
-    {
-        cout << "your index is invalid : ";
-    }
-    cout << "array after adding : \n";
-    for (int i = 0; i < size; i++)
-    {
-        cout << " " << "  the array :  " << arr[i] << " ";
+        cout << arr[i] << " ";
     }
 
-    return 0;
+    cout <<"====================enter element========================\n";
+    int element;
+    cout << "Enter an element to add to the array: ";
+    cin >> element;
+    cout <<"====================enter index=======================\n";
+    int index;
+    cin >> index;
+    if (index < 0 || index > currentSize || currentSize >= capacity)
+    {
+        cout << "Invalid index or array is full." << endl;
+        return 1;
+    }
+    for (int i = currentSize; i > index; i--)
+    {
+        arr[i] = arr[i - 1];
+    }
+    arr[index] = element;
+    currentSize++;
+    cout << "Array after insertion: ";
+    for (int i = 0; i < currentSize; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
 }
