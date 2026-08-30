@@ -20,7 +20,10 @@ const HeroSection = () => {
   const { isLoading } = usePreloader();
 
   return (
-    <SectionWrapper id="hero" className={cn("relative w-full h-dvh")}>
+    <SectionWrapper
+      id="hero"
+      className={cn("relative w-full h-dvh")}
+    >
       <div className="grid md:grid-cols-2">
         <div
           className={cn(
@@ -84,14 +87,14 @@ const HeroSection = () => {
 
               <div className="mt-8 flex flex-col gap-3 w-fit">
 
-                {/* Resume button
-                    Disabled temporarily until the CV is ready */}
+                {/* Resume
+                    Temporarily disabled until the CV is ready */}
                 <div className="flex-1">
                   <BoxReveal delay={2} width="100%">
                     <Button
                       type="button"
                       disabled
-                      className="flex items-center gap-2 w-full cursor-not-allowed"
+                      className="flex items-center gap-2 w-full"
                     >
                       <File size={24} />
                       <p>Resume</p>
@@ -99,6 +102,7 @@ const HeroSection = () => {
                   </BoxReveal>
                 </div>
 
+                {/* Actions */}
                 <div className="md:self-start flex gap-3">
                   <Tooltip delayDuration={300}>
                     <TooltipTrigger asChild>
@@ -123,6 +127,7 @@ const HeroSection = () => {
                       <Link
                         href={config.social.twitter}
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         <Button variant="outline">
                           <SiX size={24} />
@@ -133,6 +138,7 @@ const HeroSection = () => {
                     <Link
                       href={config.social.github}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="cursor-can-hover"
                     >
                       <Button variant="outline">
@@ -143,6 +149,7 @@ const HeroSection = () => {
                     <Link
                       href={config.social.linkedin}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="cursor-can-hover"
                     >
                       <Button variant="outline">
