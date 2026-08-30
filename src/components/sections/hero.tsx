@@ -37,7 +37,7 @@ const HeroSection = () => {
                   <p
                     className={cn(
                       "md:self-start mt-4 font-thin text-md text-slate-500 dark:text-zinc-400",
-                      "cursor-default font-display sm:text-xl md:text-xl whitespace-nowrap bg-clip-text "
+                      "cursor-default font-display sm:text-xl md:text-xl whitespace-nowrap bg-clip-text"
                     )}
                   >
                     Hi, I am
@@ -52,7 +52,7 @@ const HeroSection = () => {
                         className={cn(
                           "-ml-[6px] leading-none font-thin text-transparent text-slate-800 text-left",
                           "font-thin text-7xl md:text-7xl lg:text-8xl xl:text-9xl",
-                          "cursor-default text-edge-outline font-display "
+                          "cursor-default text-edge-outline font-display"
                         )}
                       >
                         {config.author.split(" ")[0]}
@@ -60,6 +60,7 @@ const HeroSection = () => {
                         {config.author.split(" ")[1]}
                       </h1>
                     </TooltipTrigger>
+
                     <TooltipContent
                       side="top"
                       className="dark:bg-white dark:text-black"
@@ -68,86 +69,97 @@ const HeroSection = () => {
                     </TooltipContent>
                   </Tooltip>
                 </BlurIn>
-                {/* <div className="md:block hidden bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0 w-screen h-px animate-fade-right animate-glow" /> */}
+
                 <BlurIn delay={1.2}>
                   <p
                     className={cn(
                       "md:self-start md:mt-4 font-thin text-md text-slate-500 dark:text-zinc-400",
-                      "cursor-default font-display sm:text-xl md:text-xl whitespace-nowrap bg-clip-text "
+                      "cursor-default font-display sm:text-xl md:text-xl whitespace-nowrap bg-clip-text"
                     )}
                   >
                     Software Engineer & Cloud Computing
                   </p>
                 </BlurIn>
               </div>
+
               <div className="mt-8 flex flex-col gap-3 w-fit">
-                <Link
-                  href={
-                    "https://drive.google.com/file/d/119lFt8d_swAlIHH2W_MU2rSlzLYvaE2G/view?usp=sharing"
-                  }
-                  target="_blank"
-                  className="flex-1"
-                >
-                  <BoxReveal delay={2} width="100%" >
-                    <Button className="flex items-center gap-2 w-full">
+
+                {/* Resume button
+                    Disabled temporarily until the CV is ready */}
+                <div className="flex-1">
+                  <BoxReveal delay={2} width="100%">
+                    <Button
+                      type="button"
+                      disabled
+                      className="flex items-center gap-2 w-full cursor-not-allowed"
+                    >
                       <File size={24} />
                       <p>Resume</p>
                     </Button>
                   </BoxReveal>
-                </Link>
+                </div>
+
                 <div className="md:self-start flex gap-3">
                   <Tooltip delayDuration={300}>
                     <TooltipTrigger asChild>
-                      <Link href={"#contact"}>
+                      <Link href="#contact">
                         <Button
-                          variant={"outline"}
+                          variant="outline"
                           className="block w-full overflow-hidden"
                         >
                           Hire Me
                         </Button>
                       </Link>
                     </TooltipTrigger>
+
                     <TooltipContent side="bottom">
                       <p>Let's build something useful</p>
                     </TooltipContent>
                   </Tooltip>
+
                   <div className="flex items-center h-full gap-2">
+
                     {config.social.twitter && (
                       <Link
                         href={config.social.twitter}
                         target="_blank"
                       >
-                        <Button variant={"outline"}>
+                        <Button variant="outline">
                           <SiX size={24} />
                         </Button>
                       </Link>
                     )}
+
                     <Link
                       href={config.social.github}
                       target="_blank"
                       className="cursor-can-hover"
                     >
-                      <Button variant={"outline"}>
+                      <Button variant="outline">
                         <SiGithub size={24} />
                       </Button>
                     </Link>
+
                     <Link
                       href={config.social.linkedin}
                       target="_blank"
                       className="cursor-can-hover"
                     >
-                      <Button variant={"outline"}>
+                      <Button variant="outline">
                         <SiLinkedin size={24} />
                       </Button>
                     </Link>
+
                   </div>
                 </div>
               </div>
             </div>
           )}
         </div>
+
         <div className="grid col-span-1"></div>
       </div>
+
       <div className="absolute bottom-10 left-[50%] translate-x-[-50%]">
         <ScrollDownIcon />
       </div>
