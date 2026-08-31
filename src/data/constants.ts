@@ -268,24 +268,19 @@ export type Experience = {
 export const EXPERIENCE: Experience[] = [
   {
     id: 1,
-    startDate: "Feb 2025",
-    endDate: "Jun 2025",
-    title: "Software Engineering Intern",
-    company: "ATA BAUM",
-    description: [
-      "Contributed to frontend and backend development for web applications using React and Laravel.",
-      "Contributed to REST API endpoints database driven features and form workflows.",
-      "Worked on debugging performance improvements and maintainable team code practices.",
-    ],
-    skills: [
-      SkillNames.REACT,
-      SkillNames.LARAVEL,
-      SkillNames.NODEJS,
-      SkillNames.POSTGRES,
-      SkillNames.GIT,
-    ],
+    startDate: "3+ Years",
+    endDate: "Present",
+    title: "Software Engineer",
+    company: "Backend Engineering & Cloud Computing",
+    description:
+      "3+ years of software development experience through continuous learning, 
+     hands-on projects, and practical application. 
+     Focused on backend engineering, APIs, system design, and scalable architectures. 
+     Experienced with JavaScript, Go, Rust, C, C++, PHP, Laravel, PostgreSQL, MongoDB, Docker, Kubernetes, and CI/CD. 
+     Strong understanding of software architecture, performance optimization, and clean maintainable code. 
+     Cloud computing fundamentals and deployment experience without specializing in cloud engineering.",
   },
-];
+]
 
 export const themeDisclaimers = {
   light: [
